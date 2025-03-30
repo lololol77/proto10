@@ -85,7 +85,8 @@ def get_disability_type_id(장애유형, 장애정도):
     cursor = conn.cursor()
     
     # 장애유형 + 장애정도를 결합하고 공백을 제거한 후 disability_type 값을 만듦
-    disability_type = f"{장애유형} {장애정도}".strip()  # 공백 제거
+    disability_type = f"{장애유형} {장애정도}".replace(" ", "")  # 모든 공백 제거
+    # 공백 제거
     print(f"검색할 disability_type: {disability_type}")  # 디버깅용 출력
 
     # disability_types 테이블에서 해당 disability_type을 찾아 disability_type_id를 반환
