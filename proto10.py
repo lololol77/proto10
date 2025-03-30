@@ -43,10 +43,11 @@ def 직무_정보_저장(일자리_제목, 능력들):
     conn.commit()
     conn.close()
     
-# 구직자에게 적합한 일자리 제공 함수 (기존 DB에서 매칭 점수 계산)
 def 구직자에게_제공할_일자리_리스트(장애유형, 장애정도):
-    conn = 연결_기존_DB()
+    conn = 연결_새로운_DB()  # 새로운 DB 사용
     cursor = conn.cursor()
+    cursor.execute("SELECT job_title, abilities FROM job_postings")
+    ...
 
     # 구직자의 장애유형 + 장애정도에 맞는 매칭 결과 추출
     disability_type = f"{장애유형} {장애정도}"  # 장애유형 + 장애정도를 합침
