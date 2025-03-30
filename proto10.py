@@ -2,7 +2,7 @@ import sqlite3
 import streamlit as st
 
 # 기존 DB 연결 함수 (기존 DB에서 계산에 필요한 정보 추출)
-def 연결_기존_DB()
+def 연결_기존_DB():
     db_path = 'job_matching_new_copy.db'  # 기존 DB 파일 경로
     conn = sqlite3.connect(db_path)
     return conn
