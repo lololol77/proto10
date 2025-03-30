@@ -191,3 +191,12 @@ elif 역할 == "구인자":
         if st.button("대화 종료"):
             st.write("대화를 종료합니다.")
 
+# DB에 저장된 disability_type을 확인
+def 확인_disability_types():
+    conn = 연결_기존_DB()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM disability_types LIMIT 10")  # 첫 10개 데이터를 확인
+    results = cursor.fetchall()
+    conn.close()
+    return results
+print(확인_disability_types())
