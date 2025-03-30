@@ -3,13 +3,13 @@ import streamlit as st
 
 # 기존 DB 연결 함수 (기존 DB에서 계산에 필요한 정보 추출)
 def 연결_기존_DB():
-    db_path = '/mnt/data/job_matching_new_copy.db'  # 기존 DB 파일 경로
+    db_path = 'job_matching_new_copy.db'  # 기존 DB 파일 경로
     conn = sqlite3.connect(db_path)
     return conn
 
 # 새로운 DB 연결 함수 (새로운 직무 정보 저장)
 def 연결_새로운_DB():
-    db_path = '/mnt/data/job_postings.db'  # 새로운 직무 정보 저장용 DB
+    db_path = 'job_postings.db'  # 새로운 직무 정보 저장용 DB
     conn = sqlite3.connect(db_path)
     return conn
 
@@ -88,7 +88,9 @@ def 직무_매칭_점수_계산(일자리_제목, 필요한_능력, 장애유형
         print(f"검색할 disability_type: {disability_type}")  # 디버깅용 출력
 
         # disability_types 테이블에서 해당 disability_type을 찾아 disability_type_id를 반환
-        cursor.execute("SELECT id FROM disability_types WHERE disability_type=?", (disability_type,))
+        cursor.execute( "SELECT id FROM disability_types WHERE TRIM(UPPER(disability_type)) = TRIM(UPPER(?))",
+        (disability_type.strip(),))
+
         disability_type_id = cursor.fetchone()
         
         conn.close()
