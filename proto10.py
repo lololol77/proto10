@@ -79,10 +79,25 @@ def 직무_매칭_점수_계산(일자리_제목, 필요한_능력, 장애유형
     cursor = conn.cursor()
     
     # 구직자의 장애유형 + 장애정도에 맞는 disability_type_id 확인
-    disability_type_id = get_disability_type_id(장애유형, 장애정도)
+    def get_disability_type_id(장애유형, 장애정도):
+    conn = 연결_기존_DB()
+    cursor = conn.cursor()
+    
+    # 장애유형 + 장애정도 결합
+    disability_type = f"{장애유형} {장애정도}"  # 장애유형과 장애정도를 합침
+    print(f"검색할 disability_type: {disability_type}")  # 디버깅용 출력
+
+    # disability_types 테이블에서 해당 disability_type을 찾아 disability_type_id를 반환
+    cursor.execute("SELECT id FROM disability_types WHERE disability_type=?", (disability_type,))
+    disability_type_id = cursor.fetchone()
+    
+    conn.close()
+    
     if disability_type_id is None:
-        print(f"장애유형 '{장애유형}'과 장애정도 '{장애정도}'에 해당하는 disability_type_id가 없습니다.")
-        return 0  # 해당하는 disability_type_id가 없으면 0점 처리
+        print(f"장애유형 '{장애유형}'과 장애정도 '{장애정도}'에 해당하는 disability_type_id가 없습니다.")  # 디버깅 메시지
+        return None  # 해당 장애유형 + 장애정도가 없으면 None 반환
+    return disability_type_id[0]
+
     
     # 매칭 점수 계산
     매칭_점수 = []
