@@ -3,13 +3,13 @@ import streamlit as st
 
 # 기존 DB 연결 함수 (기존 DB에서 계산에 필요한 정보 추출)
 def 연결_기존_DB():
-    db_path = 'job_matching_new_copy.db'  # 기존 DB 파일 경로
+    db_path = '/mnt/data/job_matching_new_copy.db'  # 기존 DB 파일 경로
     conn = sqlite3.connect(db_path)
     return conn
 
 # 새로운 DB 연결 함수 (새로운 직무 정보 저장)
 def 연결_새로운_DB():
-    db_path = 'job_postings.db'  # 새로운 직무 정보 저장용 DB
+    db_path = '/mnt/data/job_postings.db'  # 새로운 직무 정보 저장용 DB
     conn = sqlite3.connect(db_path)
     return conn
 
@@ -42,7 +42,7 @@ def 직무_정보_저장(일자리_제목, 능력들):
     
     conn.commit()
     conn.close()
-    
+
 # 구직자에게 적합한 일자리 제공 함수 (기존 DB에서 매칭 점수 계산)
 def 구직자에게_제공할_일자리_리스트(장애유형, 장애정도):
     conn = 연결_기존_DB()
